@@ -45,5 +45,13 @@ class Repository
       @config['repository_base'][@environment]
   end
 
+  def repository_path?(key)
+    repository_paths.include?(key)
+  end
+
+  def repository_paths
+    @config['repository_paths']
+  end
+
 
 end
