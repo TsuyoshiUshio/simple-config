@@ -4,7 +4,11 @@ require 'pathname_ext'
 class GitRepository < Repository
   def self.create(path = 'config')
     config = load_yaml(path)
-    GitRepository.new(config)
+    if ENV['ENABLE_CLONE'] == 'false' then
+      GitRepository.new(config)
+    else
+      GitRepository.new(config).clone_to('spec/temp')
+    end
   end
 
   def clone_to(relative_path)
@@ -18,8 +22,6 @@ class GitRepository < Repository
     repository_paths.each{|key|
       new_config["repository_base"]["test"][key] =  relative_path + '/' + (Pathname.new(self.send(key)).basename.to_s)
     }
-
-    puts new_config
     GitRepository.new({:config_path => config_path,  :contents => new_config})
   end
 
