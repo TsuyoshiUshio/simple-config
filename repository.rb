@@ -11,11 +11,17 @@ class Repository
   end
 
   def method_missing(method, *args)
-    return @config[@environment][method.to_s] if @config[@environment].key?(method.to_s)
+    return contents_hash[method.to_s] if contents_hash.key?(method.to_s)
     super
   end
 
   private
+
+  def contents_hash
+      @config['repository_base'][@environment]
+  end
+
+
   def self.load_yaml(path)
     config_path = File.expand_path("../#{path}/repository.yml", __FILE__)
 

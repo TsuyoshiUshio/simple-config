@@ -1,16 +1,21 @@
 ---
-production:
-  protocol: git
-  release: git://github.com/sample/release.git
-  storage: git://github.com/sample/storage.git
-  retrieval: git://github.com/sample/retrieval.git
-development:
-  protocol: https
-  release: https://github.com/sample/release.git
-  storage: https://github.com/sample/storage.git
-  retrieval: https://github.com/sample/retrieval.git
-test:
-  protocol: relative
-  release: spec/repositories/release.git
-  storage: spec/repositories/storage.git
-  retrieval: spec/repositories/retrieval.git
+repository_base:
+  production:
+    protocol: git
+    release: git://github.com/sample/release.git
+    storage: git://github.com/sample/storage.git
+    retrieval: git://github.com/sample/retrieval.git
+  development:
+    protocol: https
+    release: https://github.com/sample/release.git
+    storage: https://github.com/sample/storage.git
+    retrieval: https://github.com/sample/retrieval.git
+  test:
+    protocol: relative
+    release: spec/repositories/release.git
+    storage: spec/repositories/storage.git
+    retrieval: spec/repositories/retrieval.git
+repository_keys:
+  - release
+  - storage
+  - retrieval
