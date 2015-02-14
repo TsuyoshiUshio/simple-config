@@ -15,6 +15,10 @@ class Repository
     super
   end
 
+  def respond_to?(method)
+    contents_hash.key?(method) || super
+  end
+
   protected
 
   def initialize(config)

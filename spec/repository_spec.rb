@@ -24,4 +24,9 @@ describe '環境毎のリポジトリを管理するクラスを作成する' do
     expect(repository.release).to eq "git://github.com/sample/release.git"
   end
 
+  it 'respond_to?のオーバーライド' do
+    expect(Repository.create.respond_to?('release')).to be_truthy
+    expect(Repository.create.respond_to?('xxxxxxx')).to be_falsey
+  end
+
 end
