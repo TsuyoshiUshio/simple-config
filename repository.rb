@@ -10,6 +10,11 @@ class Repository
       Repository.new(config)
   end
 
+  def method_missing(method, *args)
+    return @config[@environment][method.to_s] if @config[@environment].key?(method.to_s)
+    super
+  end
+
   private
   def self.load_yaml(path)
     config_path = File.expand_path("../#{path}/repository.yml", __FILE__)
@@ -24,17 +29,11 @@ class Repository
     {:config_path => config_path,  :contents => contents}
   end
 
-  def self.generate_methods(config, environment)
-    config[environment].each do |k, v|
-       define_method(k) { "#{v}" }
-    end
-  end
 
   def initialize(config)
     @config_path = config[:config_path]
     @environment = ENV['RAILS_ENV']
     @environment ||= 'development'
     @config = config[:contents]
-    Repository.generate_methods(@config, @environment)
   end
 end
