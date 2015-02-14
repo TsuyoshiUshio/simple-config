@@ -15,12 +15,14 @@ class Repository
     super
   end
 
-  private
+  protected
 
-  def contents_hash
-      @config['repository_base'][@environment]
+  def initialize(config)
+    @config_path = config[:config_path]
+    @environment = ENV['RAILS_ENV']
+    @environment ||= 'development'
+    @config = config[:contents]
   end
-
 
   def self.load_yaml(path)
     config_path = File.expand_path("../#{path}/repository.yml", __FILE__)
@@ -30,16 +32,14 @@ class Repository
       contents = YAML.load(f.read)
       f.close
     rescue Exception => e
-       raise "#{config_path}にrepository.yamlが見つかりません"
+      raise "#{config_path}にrepository.yamlが見つかりません"
     end
     {:config_path => config_path,  :contents => contents}
   end
 
-
-  def initialize(config)
-    @config_path = config[:config_path]
-    @environment = ENV['RAILS_ENV']
-    @environment ||= 'development'
-    @config = config[:contents]
+  def contents_hash
+      @config['repository_base'][@environment]
   end
+
+
 end

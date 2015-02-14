@@ -15,7 +15,7 @@ repository_base:
     release: spec/repositories/release.git
     storage: spec/repositories/storage.git
     retrieval: spec/repositories/retrieval.git
-repository_keys:
+repository_paths:
   - release
   - storage
   - retrieval

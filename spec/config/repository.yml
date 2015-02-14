@@ -1,5 +1,5 @@
 ---
-environment:
+repository_base:
   production:
     protocol: git
     release: git://github.com/sample/release.git
@@ -15,7 +15,7 @@ environment:
     release: spec/repositories/release.git
     storage: spec/repositories/storage.git
     retrieval: spec/repositories/retrieval.git
-repository_keys:
+repository_paths:
   - release
   - storage
   - retrieval

@@ -11,12 +11,17 @@ describe '環境毎のリポジトリを管理するクラスを作成する' do
   end
 
   it 'repository.ymlが無い場所を指定したら例外' do
-    expect{repository = Repository.create('.')}.to raise_error("#{Dir::pwd}/repository.ymlにrepository.yamlが見つかりません")
+    expect{Repository.create('.')}.to raise_error("#{Dir::pwd}/repository.ymlにrepository.yamlが見つかりません")
   end
 
   it '環境変数にあわせて変数を取得出来る' do
     ENV['RAILS_ENV'] = 'development'
     repository = Repository.create
     expect(repository.release).to eq "https://github.com/sample/release.git"
+
+    ENV['RAILS_ENV'] = 'production'
+    repository = Repository.create
+    expect(repository.release).to eq "git://github.com/sample/release.git"
   end
+
 end
