@@ -10,6 +10,7 @@ describe 'Gitに特化したリポジトリクラスの拡張' do
     expect(GitRepository.create('spec/config').release).to eq Dir::pwd + '/spec/repositories/release.git'
     ENV['RAILS_ENV'] = "production"
     expect(GitRepository.create('spec/config').release).to eq 'git://github.com/sample/release.git'
+
   end
 
   it 'テスト環境の場合、テンポラリのディレクトリのパスに入れ替えるclone_to機能を実装する' do
@@ -23,6 +24,7 @@ describe 'Gitに特化したリポジトリクラスの拡張' do
      ENV['RAILS_ENV'] = 'test'
      ENV['ENABLE_CLONE'] = ''
      expect(GitRepository.create('spec/config').release).to eq Dir::pwd + '/spec/temp/release.git'
-
   end
+
+
 end

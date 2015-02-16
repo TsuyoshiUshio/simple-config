@@ -4,10 +4,10 @@ require 'pathname_ext'
 class GitRepository < Repository
   def self.create(path = 'config')
     config = load_yaml(path)
-    if ENV['ENABLE_CLONE'] == 'false' then
-      GitRepository.new(config)
-    else
+    if ENV['ENABLE_CLONE'] != 'false' && ENV['RAILS_ENV'] == 'test' then
       GitRepository.new(config).clone_to('spec/temp')
+    else
+      GitRepository.new(config)
     end
   end
 
